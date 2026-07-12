@@ -16,33 +16,25 @@
   <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    :root{--p:#006994;--pd:#004A68;--pl:#E4F1FA;--bg:#F4F6FA;--card:#fff;--t1:#111;--t2:#666;--bd:rgba(0,0,0,.11);--bds:rgba(0,0,0,.22);--rad:10px;--ok:#1B5E20;--warn:#E65100;--bad:#B71C1C;--oxide:#B5502F}
+    :root{--p:#B5502F;--pd:#944225;--pl:#F5E9E5;--bg:#F4F6FA;--card:#fff;--t1:#111;--t2:#666;--bd:rgba(0,0,0,.11);--bds:rgba(0,0,0,.22);--rad:10px;--ok:#1B5E20;--warn:#E65100;--bad:#B71C1C}
     body{font-family:'DM Sans','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--t1);font-size:13px}
     .container{max-width:1420px;margin:0 auto;padding:20px}
     .header{background:linear-gradient(135deg,var(--p),var(--pd));color:#fff;padding:26px 22px;border-radius:var(--rad);margin-bottom:16px;display:flex;justify-content:space-between;gap:16px;align-items:center}
     .header h1{font-size:26px;margin-bottom:5px;display:flex;align-items:center;gap:10px;font-weight:700}
     .header p{opacity:.9;font-size:13px}.userbox{background:rgba(255,255,255,.18);padding:11px 14px;border-radius:8px;min-width:210px}.userbox .lbl{font-size:10px;opacity:.85;margin-bottom:5px;text-transform:uppercase;letter-spacing:.7px}.userbox .nm{font-size:13px;font-weight:700}
-    .tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}.tab-btn{padding:9px 14px;border-radius:7px;border:1px solid var(--bds);background:var(--card);color:var(--t1);cursor:pointer;font-size:12px;font-weight:600;transition:all .15s;display:flex;align-items:center;gap:6px}.tab-btn:hover{border-color:var(--p);background:var(--pl)}.tab-btn.active{background:var(--oxide);color:#fff;border-color:var(--oxide)}
+    .tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}.tab-btn{padding:9px 14px;border-radius:7px;border:1px solid var(--bds);background:var(--card);color:var(--t1);cursor:pointer;font-size:12px;font-weight:600;transition:all .15s;display:flex;align-items:center;gap:6px}.tab-btn:hover{border-color:var(--p);background:var(--pl)}.tab-btn.active{background:var(--p);color:#fff;border-color:var(--p)}
     .tab-content{display:none}.tab-content.active{display:block}.card{background:var(--card);border-radius:var(--rad);border:.5px solid var(--bd);padding:16px;margin-bottom:14px}.card-header{font-size:13px;font-weight:700;margin:-16px -16px 14px;padding:12px 16px;border-bottom:.5px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:10px}
     .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:14px}.stat{background:var(--card);border-radius:var(--rad);border:.5px solid var(--bd);padding:13px;display:flex;gap:11px;align-items:center}.stat-icon{width:36px;height:36px;background:var(--pl);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--p);font-size:19px;flex-shrink:0}.stat-value{font-size:20px;font-weight:700;color:var(--p)}.stat-label{font-size:10px;color:var(--t2);text-transform:uppercase;letter-spacing:.4px}
     table{width:100%;border-collapse:collapse}th{padding:9px 10px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;background:#f5f5f5;border-bottom:.5px solid var(--bd);color:var(--t2)}td{padding:9px 10px;border-bottom:.5px solid var(--bd);vertical-align:top}tr:hover td{background:#fafafa}.table-wrap{overflow-x:auto}
-    .btn{padding:7px 12px;border-radius:7px;border:.5px solid var(--bds);background:transparent;color:var(--t1);cursor:pointer;font-size:12px;font-weight:600;transition:all .15s;display:inline-flex;align-items:center;gap:5px;font-family:inherit;white-space:nowrap}.btn:hover{background:#f0f0f0}.btn.primary{background:var(--oxide);color:#fff;border-color:var(--oxide)}.btn.primary:hover{background:#944225}.btn.ok{background:var(--ok);color:#fff;border-color:var(--ok)}.btn.ok:hover{background:#0f4620}.btn.bad{color:var(--bad);border-color:#EF9A9A}.btn.sm{padding:5px 9px;font-size:11px}.btn:disabled{opacity:.45;cursor:not-allowed}
+    .btn{padding:7px 12px;border-radius:7px;border:.5px solid var(--bds);background:transparent;color:var(--t1);cursor:pointer;font-size:12px;font-weight:600;transition:all .15s;display:inline-flex;align-items:center;gap:5px;font-family:inherit;white-space:nowrap}.btn:hover{background:#f0f0f0}.btn.primary{background:var(--p);color:#fff;border-color:var(--p)}.btn.primary:hover{background:var(--pd)}.btn.ok{background:var(--ok);color:#fff;border-color:var(--ok)}.btn.bad{color:var(--bad);border-color:#EF9A9A}.btn.sm{padding:5px 9px;font-size:11px}.btn:disabled{opacity:.45;cursor:not-allowed}
     input,select,textarea{font-family:inherit}input,select,textarea{width:100%;padding:8px 10px;border:1px solid var(--bd);border-radius:7px;background:#fafafa;color:var(--t1);font-size:12.5px}input:focus,select:focus,textarea:focus{outline:none;border-color:var(--p);background:#fff}textarea{min-height:78px;resize:vertical}.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:12px}.form-group label{display:block;font-size:10.5px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px}.req::after{content:' *';color:var(--bad)}
-    
-    /* CHECKBOX STYLING (Like PayMS) */
-    .checkbox-group{display:flex;align-items:flex-start;gap:12px;padding:10px;background:#fafafa;border-radius:7px;border:1px solid var(--bd);margin-bottom:12px}
-    .checkbox-item{display:flex;gap:8px;align-items:flex-start;flex:1}
-    .checkbox-item input[type="checkbox"]{width:18px;height:18px;margin-top:3px;cursor:pointer;accent-color:var(--oxide)}
-    .checkbox-item label{font-size:12px;color:var(--t1);cursor:pointer;margin:0;text-transform:none;font-weight:500;line-height:1.45}
-    .checkbox-item .hint{font-size:11px;color:var(--t2);margin-top:2px;display:block}
-    
-    .queue-layout{display:grid;grid-template-columns:390px minmax(0,1fr);gap:14px;align-items:start}.ticket-list{display:flex;flex-direction:column;gap:8px;max-height:calc(100vh - 210px);overflow:auto}.ticket-row{border:.5px solid var(--bd);background:#fff;border-radius:8px;padding:10px 12px;cursor:pointer}.ticket-row:hover,.ticket-row.selected{border-color:var(--p);background:#F8FCFF}.ticket-title{display:flex;justify-content:space-between;gap:8px;font-weight:700;font-size:12.5px}.ticket-meta{font-size:11px;color:var(--t2);margin-top:4px;line-height:1.45}.detail-box{min-height:420px}.message{background:#fafafa;border:.5px solid var(--bd);border-left:3px solid var(--p);border-radius:8px;padding:11px 12px;margin:10px 0}.message b{display:block;font-size:12px;margin-bottom:4px}.message p{font-size:12.5px;line-height:1.55;white-space:pre-wrap}.filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}.filters .btn.active{background:var(--oxide);color:#fff;border-color:var(--oxide)}
+    .queue-layout{display:grid;grid-template-columns:390px minmax(0,1fr);gap:14px;align-items:start}.ticket-list{display:flex;flex-direction:column;gap:8px;max-height:calc(100vh - 210px);overflow:auto}.ticket-row{border:.5px solid var(--bd);background:#fff;border-radius:8px;padding:10px 12px;cursor:pointer}.ticket-row:hover,.ticket-row.selected{border-color:var(--p);background:#F8FCFF}.ticket-title{display:flex;justify-content:space-between;gap:8px;font-weight:700;font-size:12.5px}.ticket-meta{font-size:11px;color:var(--t2);margin-top:4px;line-height:1.45}.detail-box{min-height:420px}.message{background:#fafafa;border:.5px solid var(--bd);border-left:3px solid var(--p);border-radius:8px;padding:11px 12px;margin:10px 0}.message b{display:block;font-size:12px;margin-bottom:4px}.message p{font-size:12.5px;line-height:1.55;white-space:pre-wrap}.filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}.filters .btn.active{background:var(--p);color:#fff;border-color:var(--p)}
     .badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:10.5px;font-weight:700;white-space:nowrap}.s-open{background:#E3F2FD;color:#006994}.s-pending{background:#FFF3E0;color:#E65100}.s-closed{background:#E8F5E9;color:#1B5E20}.s-urgent{background:#FFEBEE;color:#B71C1C}.s-high{background:#FFF3E0;color:#E65100}.s-medium{background:#FFFDE7;color:#F57F17}.s-low{background:#E8F5E9;color:#1B5E20}.s-neutral{background:#ECEFF1;color:#455A64}
     .muted{color:var(--t2);font-size:11px}.strong{font-weight:700}.right{text-align:right}.hidden{display:none!important}.empty{text-align:center;color:var(--t2);padding:30px 12px}.audit-row{display:grid;grid-template-columns:145px 150px 1fr;gap:10px;border-bottom:.5px solid var(--bd);padding:9px 0}.toast{position:fixed;right:18px;bottom:18px;background:#1A237E;color:#fff;padding:10px 14px;border-radius:10px;font-size:12px;font-weight:600;z-index:9999;box-shadow:0 6px 20px rgba(0,0,0,.18)}.toast.error{background:var(--bad)}.toast.success{background:var(--ok)}
     .error-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px;z-index:99}.error-card{background:#fff;border-radius:12px;border:.5px solid var(--bd);box-shadow:0 10px 30px rgba(0,0,0,.12);max-width:520px;padding:26px;text-align:center}.error-card h2{color:var(--bad);margin-bottom:8px}
-    .disabled-field{opacity:.5;pointer-events:none}
+    .checkbox-group{display:flex;align-items:flex-start;gap:12px;padding:10px;background:#fafafa;border-radius:7px;border:1px solid var(--bd);margin-bottom:12px}.checkbox-item{display:flex;gap:8px;align-items:flex-start;flex:1}.checkbox-item input[type="checkbox"]{width:18px;height:18px;margin-top:3px;cursor:pointer;accent-color:var(--p)}.checkbox-item label{font-size:12px;color:var(--t1);cursor:pointer;margin:0;text-transform:none;font-weight:500;line-height:1.45}.checkbox-item .hint{font-size:11px;color:var(--t2);margin-top:2px;display:block}.disabled-field{opacity:.5;pointer-events:none}
     @media(max-width:900px){.queue-layout{grid-template-columns:1fr}.ticket-list{max-height:330px}}
-    @media(max-width:720px){.container{padding:12px}.header{align-items:flex-start;flex-direction:column}.audit-row{grid-template-columns:1fr}.tabs{gap:6px}.tab-btn{padding:8px 10px}.card{padding:12px}.card-header{margin:-12px -12px 12px;padding:10px 12px}.checkbox-group{flex-direction:column;gap:8px}}
+    @media(max-width:720px){.container{padding:12px}.header{align-items:flex-start;flex-direction:column}.audit-row{grid-template-columns:1fr}.tabs{gap:6px}.tab-btn{padding:8px 10px}.card{padding:12px}.card-header{margin:-12px -12px 12px;padding:10px 12px}}
   </style>
 </head>
 <body>
@@ -78,13 +70,13 @@ firebase.initializeApp({
 });
 const db=firebase.firestore();
 const TICKET_COL='css_tickets',USERS_COL='dqap_users',PROJ_COL='dqap_projects',CRM_CUSTOMERS='dqap_crm_customers',CRM_DEALS='dqap_crm_deals',SETTINGS_COL='dqap_css_settings';
-const CSS_BUILD='20260712.2';
+const CSS_BUILD='20260712.1';
 let currentUser=null,currentUserRole=null,currentUserData=null,wikiSession=null,authInitialized=false;
 let ticketsData=[],usersData=[],projectsData=[],contactsData=[],dealsData=[],cssSettings={categories:['Fire Detection','PA/VA System','Gas Suppression','Surveillance','Access Control','Other']};
 let ticketsUnsub=null,settingsUnsub=null,activeTab='dashboard',activeFilter='all',selectedTicketId='';
 let enableProjectCheckbox=false,enableContactCheckbox=false;
 
-function esc(s){return String(s??'').replace(/[&<>\"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&#39;'}[m]))}
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function el(id){return document.getElementById(id)}
 function g(id){return(el(id)?.value||'').trim()}
 function norm(s){return String(s||'').trim().toLowerCase()}
@@ -170,19 +162,19 @@ function renderDashboard(){
     <div class="stat"><div class="stat-icon"><i class="ti ti-inbox"></i></div><div><div class="stat-value">${open}</div><div class="stat-label">Open</div></div></div>
     <div class="stat"><div class="stat-icon"><i class="ti ti-message-reply"></i></div><div><div class="stat-value">${pending}</div><div class="stat-label">Pending reply</div></div></div>
     <div class="stat"><div class="stat-icon"><i class="ti ti-alert-triangle"></i></div><div><div class="stat-value">${urgent}</div><div class="stat-label">Urgent open</div></div></div>
-  </div><div class="card"><div class="card-header">Recent support tickets <button class="btn sm primary" onclick="switchTab('new')"><i class="ti ti-plus"></i>New Ticket</button></div>${ticketTable(ticketsData.slice(0,10),false)}</div>`;
+  </div><div class="card"><div class="card-header">Recent support tickets <button class="btn sm primary" onclick="switchTab('new')"><i class="ti ti-plus"></i>New</button></div>${ticketTable(ticketsData.slice(0,10),false)}</div>`;
 }
 function renderTickets(){
   const filtered=activeFilter==='all'?ticketsData:ticketsData.filter(t=>statusKey(t.status)===activeFilter);
   const selected=filtered.find(t=>t.id===selectedTicketId)||filtered[0]||null;
   if(selected)selectedTicketId=selected.id;
   el('tab-tickets').innerHTML=`<div class="filters">
-    ${['all','open','pending reply','closed'].map(f=>`<button class="btn sm ${activeFilter===f?'active':''}\" onclick="setFilter('${f}')">${f==='all'?'All':f.replace(/\\b\\w/g,m=>m.toUpperCase())}</button>`).join('')}
+    ${['all','open','pending reply','closed'].map(f=>`<button class="btn sm ${activeFilter===f?'active':''}" onclick="setFilter('${f}')">${f==='all'?'All':f.replace(/\b\w/g,m=>m.toUpperCase())}</button>`).join('')}
   </div><div class="queue-layout"><div class="ticket-list">${filtered.length?filtered.map(ticketRow).join(''):'<div class="card empty">No tickets found.</div>'}</div><div class="card detail-box">${selected?ticketDetail(selected):'<div class="empty">Select a ticket to view details.</div>'}</div></div>`;
 }
 function setFilter(f){activeFilter=f;renderTickets()}
 function selectTicket(id){selectedTicketId=id;renderTickets()}
-function ticketRow(t){return`<div class="ticket-row ${selectedTicketId===t.id?'selected':''}\" onclick="selectTicket('${t.id}')\"><div class="ticket-title"><span>${esc(t.subject||'Untitled ticket')}</span>${priorityBadge(t.priority)}</div><div class="ticket-meta">${esc(t.ticketId||t.id)} · ${esc(t.requester||'-')} · ${esc(t.category||'-')}<br>${statusBadge(t.status)} <span style="margin-left:6px">${fmtDate(t.updatedAt||t.updated)}</span></div></div>`}
+function ticketRow(t){return`<div class="ticket-row ${selectedTicketId===t.id?'selected':''}" onclick="selectTicket('${t.id}')"><div class="ticket-title"><span>${esc(t.subject||'Untitled ticket')}</span>${priorityBadge(t.priority)}</div><div class="ticket-meta">${esc(t.ticketId||t.id)} · ${esc(t.requester||'-')} · ${esc(t.category||'-')}<br>${statusBadge(t.status)} <span style="margin-left:6px">${fmtDate(t.updatedAt||t.updated)}</span></div></div>`}
 function ticketDetail(t){
   const comments=(t.comments||[]).map(c=>`<div class="message"><b>${esc(c.actor||'Support')} <span class="muted">${fmtDate(c.time)}</span></b><p>${esc(c.message||'')}</p></div>`).join('');
   return`<div class="card-header" style="margin:-16px -16px 14px"><div><div>${esc(t.subject||'Untitled ticket')}</div><div class="muted">${esc(t.ticketId||t.id)} · ${esc(t.category||'-')} · opened by ${esc(t.requester||'-')}</div></div><div style="display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end">${priorityBadge(t.priority)}${statusBadge(t.status)}</div></div>
@@ -196,42 +188,19 @@ function ticketTable(list,actions){
   if(!list.length)return'<div class="empty">No support tickets found.</div>';
   return`<div class="table-wrap"><table><thead><tr><th>No.</th><th>Subject</th><th>Links</th><th>Requester</th><th>Priority</th><th>Status</th><th>Updated</th>${actions?'<th>Action</th>':''}</tr></thead><tbody>${list.map(t=>`<tr><td class="strong">${esc(t.ticketId||t.id)}</td><td><b>${esc(t.subject||'Untitled ticket')}</b><div class="muted">${esc(t.category||'-')}</div></td><td>${esc(projectLabel(t.projectId))}<div class="muted">${esc(t.crmType||'CRM')}: ${esc(crmLabel(t.crmType,t.crmId))}</div></td><td>${esc(t.requester||'-')}<div class="muted">Assignee: ${esc(t.assigneeName||t.assignee||'Unassigned')}</div></td><td>${priorityBadge(t.priority)}</td><td>${statusBadge(t.status)}</td><td>${esc(dateOnly(t.updatedAt||t.updated))}</td>${actions?`<td><button class="btn sm" onclick="selectedTicketId='${t.id}';switchTab('tickets')">Open</button></td>`:''}</tr>`).join('')}</tbody></table></div>`;
 }
-
-function toggleProjectField(checked){
-  enableProjectCheckbox=checked;
-  const field=el('f-project');
-  if(field){field.parentElement.parentElement.style.opacity=checked?'1':'0.5';field.parentElement.parentElement.style.pointerEvents=checked?'auto':'none'}
-}
-
-function toggleContactField(checked){
-  enableContactCheckbox=checked;
-  const field=el('f-crm');
-  if(field){field.parentElement.parentElement.style.opacity=checked?'1':'0.5';field.parentElement.parentElement.style.pointerEvents=checked?'auto':'none'}
-}
-
 function renderNew(){
   const crmOpts=[...contactsData.map(c=>({type:'Contact',id:c.id,label:c.name||c.company||c.contact||c.id})),...dealsData.map(d=>({type:'Deal',id:d.id,label:d.title||d.dealTitle||d.id}))];
   el('tab-new').innerHTML=`<div class="card"><div class="card-header">Create support ticket</div>
     <div class="form-row"><div class="form-group"><label class="req">Requester name</label><input id="f-requester" value="${esc(roleName())}"></div><div class="form-group"><label class="req">Subject</label><input id="f-subject" placeholder="Short support issue"></div><div class="form-group"><label>Assignee</label><select id="f-assignee"><option value="">Unassigned</option>${userOptions()}</select></div></div>
     <div class="form-row"><div class="form-group"><label class="req">Category</label><select id="f-category">${(cssSettings.categories||[]).map(c=>`<option>${esc(c)}</option>`).join('')}</select></div><div class="form-group"><label class="req">Priority</label><select id="f-priority"><option>Low</option><option selected>Medium</option><option>High</option><option>Urgent</option></select></div><div class="form-group"><label>Status</label><select id="f-status"><option selected>Open</option><option>Pending Reply</option><option>Closed</option></select></div></div>
-    
-    <div class="checkbox-group">
-      <div class="checkbox-item">
-        <input type="checkbox" id="f-enable-project" onchange="toggleProjectField(this.checked)">
-        <label for="f-enable-project">Project<span class="hint">Enable only when this ticket belongs to a Wiki project.</span></label>
-      </div>
-      <div class="checkbox-item">
-        <input type="checkbox" id="f-enable-contact" onchange="toggleContactField(this.checked)">
-        <label for="f-enable-contact">Contact<span class="hint">Enable only when this ticket belongs to a CRM contact/deal.</span></label>
-      </div>
-    </div>
-    
-    <div class="form-row"><div class="form-group" style="opacity:0.5;pointer-events:none"><label>Wiki Project Link</label><select id="f-project"><option value="">Select project</option>${projectsData.map(p=>`<option value="${p.id}">${esc((p.number||'')+' '+(p.name||p.projName||''))}</option>`).join('')}</select></div><div class="form-group" style="opacity:0.5;pointer-events:none"><label>CRM Contact / Deal</label><select id="f-crm"><option value="">Select CRM contact/deal</option>${crmOpts.map(o=>`<option value="${o.type}|${o.id}">${o.type}: ${esc(o.label)}</option>`).join('')}</select></div></div>
-    
+    <div class="checkbox-group"><div class="checkbox-item"><input type="checkbox" id="f-enable-project" onchange="toggleProjectField(this.checked)"><label for="f-enable-project">Project<span class="hint">Enable only when this ticket belongs to a Wiki project.</span></label></div><div class="checkbox-item"><input type="checkbox" id="f-enable-contact" onchange="toggleContactField(this.checked)"><label for="f-enable-contact">Contact<span class="hint">Enable only when this ticket belongs to a CRM contact/deal.</span></label></div></div>
+    <div class="form-row"><div class="form-group disabled-field"><label>Wiki Project Link</label><select id="f-project"><option value="">Select project</option>${projectsData.map(p=>`<option value="${p.id}">${esc((p.number||'')+' '+(p.name||p.projName||''))}</option>`).join('')}</select></div><div class="form-group disabled-field"><label>CRM Contact / Deal</label><select id="f-crm"><option value="">Select CRM contact/deal</option>${crmOpts.map(o=>`<option value="${o.type}|${o.id}">${o.type}: ${esc(o.label)}</option>`).join('')}</select></div></div>
     <div class="form-group"><label class="req">Details</label><textarea id="f-message" placeholder="Describe the issue, customer impact, site details and expected action"></textarea></div>
     <button class="btn primary" onclick="submitTicket()"><i class="ti ti-send"></i>Create Ticket</button>
   </div>`;
 }
+function toggleProjectField(checked){enableProjectCheckbox=checked;const field=el('f-project');if(field){field.parentElement.parentElement.style.opacity=checked?'1':'0.5';field.parentElement.parentElement.style.pointerEvents=checked?'auto':'none'}}
+function toggleContactField(checked){enableContactCheckbox=checked;const field=el('f-crm');if(field){field.parentElement.parentElement.style.opacity=checked?'1':'0.5';field.parentElement.parentElement.style.pointerEvents=checked?'auto':'none'}}
 async function submitTicket(){
   const requester=g('f-requester'),subject=g('f-subject'),message=g('f-message'),category=g('f-category'),priority=g('f-priority'),status=g('f-status'),assignee=g('f-assignee');
   const projectId=enableProjectCheckbox?g('f-project'):'';
