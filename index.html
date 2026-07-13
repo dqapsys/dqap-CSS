@@ -33,6 +33,7 @@
     .muted{color:var(--t2);font-size:11px}.strong{font-weight:700}.right{text-align:right}.hidden{display:none!important}.empty{text-align:center;color:var(--t2);padding:30px 12px}.audit-row{display:grid;grid-template-columns:145px 150px 1fr;gap:10px;border-bottom:.5px solid var(--bd);padding:9px 0}.toast{position:fixed;right:18px;bottom:18px;background:#1A237E;color:#fff;padding:10px 14px;border-radius:10px;font-size:12px;font-weight:600;z-index:9999;box-shadow:0 6px 20px rgba(0,0,0,.18)}.toast.error{background:var(--bad)}.toast.success{background:var(--ok)}
     .error-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px;z-index:99}.error-card{background:#fff;border-radius:12px;border:.5px solid var(--bd);box-shadow:0 10px 30px rgba(0,0,0,.12);max-width:520px;padding:26px;text-align:center}.error-card h2{color:var(--bad);margin-bottom:8px}
     .checkbox-group{display:flex;align-items:flex-start;gap:12px;padding:10px;background:#fafafa;border-radius:7px;border:1px solid var(--bd);margin-bottom:12px}.checkbox-item{display:flex;gap:8px;align-items:flex-start;flex:1}.checkbox-item input[type="checkbox"]{width:18px;height:18px;margin-top:3px;cursor:pointer;accent-color:var(--oxide)}.checkbox-item label{font-size:12px;color:var(--t1);cursor:pointer;margin:0;text-transform:none;font-weight:500;line-height:1.45}.checkbox-item .hint{font-size:11px;color:var(--t2);margin-top:2px;display:block}.disabled-field{opacity:.5;pointer-events:none}
+    .searchable-select{position:relative}.search-input{width:100%;padding:8px 10px;border:1px solid var(--bd);border-radius:7px;background:#fafafa;color:var(--t1);font-size:12.5px;margin-bottom:6px}.search-input:focus{outline:none;border-color:var(--p);background:#fff}.search-icon{position:absolute;right:10px;top:10px;color:var(--t2);font-size:14px;pointer-events:none}
     @media(max-width:900px){.queue-layout{grid-template-columns:1fr}.ticket-list{max-height:330px}}
     @media(max-width:720px){.container{padding:12px}.header{align-items:flex-start;flex-direction:column}.audit-row{grid-template-columns:1fr}.tabs{gap:6px}.tab-btn{padding:8px 10px}.card{padding:12px}.card-header{margin:-12px -12px 12px;padding:10px 12px}}
   </style>
@@ -70,7 +71,7 @@ firebase.initializeApp({
 });
 const db=firebase.firestore();
 const TICKET_COL='css_tickets',USERS_COL='dqap_users',PROJ_COL='dqap_projects',CRM_CUSTOMERS='dqap_crm_customers',CRM_DEALS='dqap_crm_deals',SETTINGS_COL='dqap_css_settings';
-const CSS_BUILD='20260712.1';
+const CSS_BUILD='20260712.4';
 let currentUser=null,currentUserRole=null,currentUserData=null,wikiSession=null,authInitialized=false;
 let ticketsData=[],usersData=[],projectsData=[],contactsData=[],dealsData=[],cssSettings={categories:['Fire Detection','PA/VA System','Gas Suppression','Surveillance','Access Control','Other']};
 let ticketsUnsub=null,settingsUnsub=null,activeTab='dashboard',activeFilter='all',selectedTicketId='';
@@ -162,7 +163,7 @@ function renderDashboard(){
     <div class="stat"><div class="stat-icon"><i class="ti ti-inbox"></i></div><div><div class="stat-value">${open}</div><div class="stat-label">Open</div></div></div>
     <div class="stat"><div class="stat-icon"><i class="ti ti-message-reply"></i></div><div><div class="stat-value">${pending}</div><div class="stat-label">Pending reply</div></div></div>
     <div class="stat"><div class="stat-icon"><i class="ti ti-alert-triangle"></i></div><div><div class="stat-value">${urgent}</div><div class="stat-label">Urgent open</div></div></div>
-  </div><div class="card"><div class="card-header">Recent support tickets <button class="btn sm primary" onclick="switchTab('new')"><i class="ti ti-plus"></i>New</button></div>${ticketTable(ticketsData.slice(0,10),false)}</div>`;
+  </div><div class="card"><div class="card-header">Recent support tickets <button class="btn sm primary" onclick="switchTab('new')"><i class="ti ti-plus"></i>New Ticket</button></div>${ticketTable(ticketsData.slice(0,10),false)}</div>`;
 }
 function renderTickets(){
   const filtered=activeFilter==='all'?ticketsData:ticketsData.filter(t=>statusKey(t.status)===activeFilter);
@@ -188,17 +189,7 @@ function ticketTable(list,actions){
   if(!list.length)return'<div class="empty">No support tickets found.</div>';
   return`<div class="table-wrap"><table><thead><tr><th>No.</th><th>Subject</th><th>Links</th><th>Requester</th><th>Priority</th><th>Status</th><th>Updated</th>${actions?'<th>Action</th>':''}</tr></thead><tbody>${list.map(t=>`<tr><td class="strong">${esc(t.ticketId||t.id)}</td><td><b>${esc(t.subject||'Untitled ticket')}</b><div class="muted">${esc(t.category||'-')}</div></td><td>${esc(projectLabel(t.projectId))}<div class="muted">${esc(t.crmType||'CRM')}: ${esc(crmLabel(t.crmType,t.crmId))}</div></td><td>${esc(t.requester||'-')}<div class="muted">Assignee: ${esc(t.assigneeName||t.assignee||'Unassigned')}</div></td><td>${priorityBadge(t.priority)}</td><td>${statusBadge(t.status)}</td><td>${esc(dateOnly(t.updatedAt||t.updated))}</td>${actions?`<td><button class="btn sm" onclick="selectedTicketId='${t.id}';switchTab('tickets')">Open</button></td>`:''}</tr>`).join('')}</tbody></table></div>`;
 }
-function renderNew(){
-  const crmOpts=[...contactsData.map(c=>({type:'Contact',id:c.id,label:c.name||c.company||c.contact||c.id})),...dealsData.map(d=>({type:'Deal',id:d.id,label:d.title||d.dealTitle||d.id}))];
-  el('tab-new').innerHTML=`<div class="card"><div class="card-header">Create support ticket</div>
-    <div class="form-row"><div class="form-group"><label class="req">Requester name</label><input id="f-requester" value="${esc(roleName())}"></div><div class="form-group"><label class="req">Subject</label><input id="f-subject" placeholder="Short support issue"></div><div class="form-group"><label>Assignee</label><select id="f-assignee"><option value="">Unassigned</option>${userOptions()}</select></div></div>
-    <div class="form-row"><div class="form-group"><label class="req">Category</label><select id="f-category">${(cssSettings.categories||[]).map(c=>`<option>${esc(c)}</option>`).join('')}</select></div><div class="form-group"><label class="req">Priority</label><select id="f-priority"><option>Low</option><option selected>Medium</option><option>High</option><option>Urgent</option></select></div><div class="form-group"><label>Status</label><select id="f-status"><option selected>Open</option><option>Pending Reply</option><option>Closed</option></select></div></div>
-    <div class="checkbox-group"><div class="checkbox-item"><input type="checkbox" id="f-enable-project" onchange="toggleProjectField(this.checked)"><label for="f-enable-project">Project<span class="hint">Enable only when this ticket belongs to a Wiki project.</span></label></div><div class="checkbox-item"><input type="checkbox" id="f-enable-contact" onchange="toggleContactField(this.checked)"><label for="f-enable-contact">Contact<span class="hint">Enable only when this ticket belongs to a CRM contact/deal.</span></label></div></div>
-    <div class="form-row"><div class="form-group disabled-field"><label>Wiki Project Link</label><select id="f-project"><option value="">Select project</option>${projectsData.map(p=>`<option value="${p.id}">${esc((p.number||'')+' '+(p.name||p.projName||''))}</option>`).join('')}</select></div><div class="form-group disabled-field"><label>CRM Contact / Deal</label><select id="f-crm"><option value="">Select CRM contact/deal</option>${crmOpts.map(o=>`<option value="${o.type}|${o.id}">${o.type}: ${esc(o.label)}</option>`).join('')}</select></div></div>
-    <div class="form-group"><label class="req">Details</label><textarea id="f-message" placeholder="Describe the issue, customer impact, site details and expected action"></textarea></div>
-    <button class="btn primary" onclick="submitTicket()"><i class="ti ti-send"></i>Create Ticket</button>
-  </div>`;
-}
+
 function toggleProjectField(checked){
   enableProjectCheckbox=checked;
   const projectField=el('f-project');
@@ -236,6 +227,49 @@ function toggleContactField(checked){
       crmField.value='';
     }
   }
+}
+
+function filterProjectSelect(){
+  const query=g('project-search').toLowerCase();
+  const options=el('f-project').querySelectorAll('option');
+  options.forEach((opt,idx)=>{
+    if(idx===0)return;
+    const text=opt.textContent.toLowerCase();
+    opt.style.display=text.includes(query)?'block':'none';
+  });
+}
+
+function filterCrmSelect(){
+  const query=g('crm-search').toLowerCase();
+  const options=el('f-crm').querySelectorAll('option');
+  options.forEach((opt,idx)=>{
+    if(idx===0)return;
+    const text=opt.textContent.toLowerCase();
+    opt.style.display=text.includes(query)?'block':'none';
+  });
+}
+
+function renderNew(){
+  const crmOpts=[
+    ...contactsData.map(c=>({
+      type:'Contact',
+      id:c.id,
+      display:`${esc(c.company||'')&&esc(c.name||'')?esc(c.company)+' - '+esc(c.name):esc(c.name||c.company||c.contact||c.id)}`
+    })),
+    ...dealsData.map(d=>({type:'Deal',id:d.id,display:esc(d.title||d.dealTitle||d.id)}))
+  ];
+  el('tab-new').innerHTML=`<div class="card"><div class="card-header">Create support ticket</div>
+    <div class="form-row"><div class="form-group"><label class="req">Requester name</label><input id="f-requester" value="${esc(roleName())}"></div><div class="form-group"><label class="req">Subject</label><input id="f-subject" placeholder="Short support issue"></div><div class="form-group"><label>Assignee</label><select id="f-assignee"><option value="">Unassigned</option>${userOptions()}</select></div></div>
+    <div class="form-row"><div class="form-group"><label class="req">Category</label><select id="f-category">${(cssSettings.categories||[]).map(c=>`<option>${esc(c)}</option>`).join('')}</select></div><div class="form-group"><label class="req">Priority</label><select id="f-priority"><option>Low</option><option selected>Medium</option><option>High</option><option>Urgent</option></select></div><div class="form-group"><label>Status</label><select id="f-status"><option selected>Open</option><option>Pending Reply</option><option>Closed</option></select></div></div>
+    <div class="checkbox-group"><div class="checkbox-item"><input type="checkbox" id="f-enable-project" onchange="toggleProjectField(this.checked)"><label for="f-enable-project">Project<span class="hint">Enable only when this ticket belongs to a Wiki project.</span></label></div><div class="checkbox-item"><input type="checkbox" id="f-enable-contact" onchange="toggleContactField(this.checked)"><label for="f-enable-contact">Contact<span class="hint">Enable only when this ticket belongs to a CRM contact/deal.</span></label></div></div>
+    <div class="form-row"><div class="form-group disabled-field"><label>Wiki Project Link</label><input type="text" id="project-search" class="search-input" placeholder="Search projects..."><select id="f-project"><option value="">Select project</option>${projectsData.map(p=>`<option value="${p.id}">${esc((p.number||'')+' '+(p.name||p.projName||''))}</option>`).join('')}</select></div><div class="form-group disabled-field"><label>CRM Contact / Deal</label><input type="text" id="crm-search" class="search-input" placeholder="Search contacts..."><select id="f-crm"><option value="">Select CRM contact/deal</option>${crmOpts.map(o=>`<option value="${o.type}|${o.id}">${o.type}: ${o.display}</option>`).join('')}</select></div></div>
+    <div class="form-group"><label class="req">Details</label><textarea id="f-message" placeholder="Describe the issue, customer impact, site details and expected action"></textarea></div>
+    <button class="btn primary" onclick="submitTicket()"><i class="ti ti-send"></i>Create Ticket</button>
+  </div>`;
+  setTimeout(()=>{
+    el('project-search')?.addEventListener('input',filterProjectSelect);
+    el('crm-search')?.addEventListener('input',filterCrmSelect);
+  },100);
 }
 async function submitTicket(){
   const requester=g('f-requester'),subject=g('f-subject'),message=g('f-message'),category=g('f-category'),priority=g('f-priority'),status=g('f-status'),assignee=g('f-assignee');
