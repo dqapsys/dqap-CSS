@@ -251,13 +251,31 @@ function filterCrmSelect(){
 
 function renderNew(){
   const crmOpts=[
-    ...contactsData.map(c=>({
-      type:'Contact',
-      id:c.id,
-      display:`${esc(c.company||'')&&esc(c.name||'')?esc(c.company)+' - '+esc(c.name):esc(c.name||c.company||c.contact||c.id)}`
-    })),
+    ...contactsData.map(c=>{
+      // For dqap_crm_customers: 'name' field = company, 'contact' field = contact person
+      const company=esc(c.name||c.company||c.Company||c.companyName||c.company_name||'');
+      const contactPerson=esc(c.contact||c.Contact||c.contactName||c.contact_name||c.person||c.personName||c.person_name||c.displayName||c.fullName||c.full_name||'');
+      // Format: Company - Contact Person
+      const display=company&&contactPerson
+        ?`${company} - ${contactPerson}`
+        :(company?`${company}${contactPerson?` (${contactPerson})`:''}`:contactPerson||esc(c.id));
+      return {type:'Contact',id:c.id,display};
+    }),
     ...dealsData.map(d=>({type:'Deal',id:d.id,display:esc(d.title||d.dealTitle||d.id)}))
   ];
+  // Debug: Log dqap_crm_customers schema
+  if(contactsData.length>0&&!window._cssContactDebugLogged){
+    window._cssContactDebugLogged=true;
+    const c=contactsData[0];
+    console.log('CSS: dqap_crm_customers sample - Company in name, Contact in contact field:',{
+      'name (COMPANY)':c.name,
+      'contact (PERSON)':c.contact,
+      email:c.email,
+      phone:c.phone,
+      industry:c.industry,
+      username:c.username
+    });
+  }
   el('tab-new').innerHTML=`<div class="card"><div class="card-header">Create support ticket</div>
     <div class="form-row"><div class="form-group"><label class="req">Requester name</label><input id="f-requester" value="${esc(roleName())}"></div><div class="form-group"><label class="req">Subject</label><input id="f-subject" placeholder="Short support issue"></div><div class="form-group"><label>Assignee</label><select id="f-assignee"><option value="">Unassigned</option>${userOptions()}</select></div></div>
     <div class="form-row"><div class="form-group"><label class="req">Category</label><select id="f-category">${(cssSettings.categories||[]).map(c=>`<option>${esc(c)}</option>`).join('')}</select></div><div class="form-group"><label class="req">Priority</label><select id="f-priority"><option>Low</option><option selected>Medium</option><option>High</option><option>Urgent</option></select></div><div class="form-group"><label>Status</label><select id="f-status"><option selected>Open</option><option>Pending Reply</option><option>Closed</option></select></div></div>
