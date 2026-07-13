@@ -29,8 +29,9 @@
     .btn{padding:7px 12px;border-radius:7px;border:.5px solid var(--bds);background:transparent;color:var(--t1);cursor:pointer;font-size:12px;font-weight:600;transition:all .15s;display:inline-flex;align-items:center;gap:5px;font-family:inherit;white-space:nowrap}.btn:hover{background:#f0f0f0}.btn.primary{background:var(--oxide);color:#fff;border-color:var(--oxide)}.btn.primary:hover{background:#944225}.btn.ok{background:var(--ok);color:#fff;border-color:var(--ok)}.btn.bad{color:var(--bad);border-color:#EF9A9A}.btn.sm{padding:5px 9px;font-size:11px}.btn:disabled{opacity:.45;cursor:not-allowed}
     input,select,textarea{font-family:inherit}input,select,textarea{width:100%;padding:8px 10px;border:1px solid var(--bd);border-radius:7px;background:#fafafa;color:var(--t1);font-size:12.5px}input:focus,select:focus,textarea:focus{outline:none;border-color:var(--p);background:#fff}textarea{min-height:78px;resize:vertical}.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:12px}.form-group label{display:block;font-size:10.5px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px}.req::after{content:' *';color:var(--bad)}
     .queue-layout{display:grid;grid-template-columns:390px minmax(0,1fr);gap:14px;align-items:start}.ticket-list{display:flex;flex-direction:column;gap:8px;max-height:calc(100vh - 210px);overflow:auto}.ticket-row{border:.5px solid var(--bd);background:#fff;border-radius:8px;padding:10px 12px;cursor:pointer}.ticket-row:hover,.ticket-row.selected{border-color:var(--p);background:#F8FCFF}.ticket-title{display:flex;justify-content:space-between;gap:8px;font-weight:700;font-size:12.5px}.ticket-meta{font-size:11px;color:var(--t2);margin-top:4px;line-height:1.45}.detail-box{min-height:420px}.message{background:#fafafa;border:.5px solid var(--bd);border-left:3px solid var(--p);border-radius:8px;padding:11px 12px;margin:10px 0}.message b{display:block;font-size:12px;margin-bottom:4px}.message p{font-size:12.5px;line-height:1.55;white-space:pre-wrap}.filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}.filters .btn.active{background:var(--oxide);color:#fff;border-color:var(--oxide)}
-    .badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:10.5px;font-weight:700;white-space:nowrap}.s-open{background:#E3F2FD;color:#006994}.s-pending{background:#FFF3E0;color:#E65100}.s-closed{background:#E8F5E9;color:#1B5E20}.s-urgent{background:#FFEBEE;color:#B71C1C}.s-high{background:#FFF3E0;color:#E65100}.s-medium{background:#FFFDE7;color:#F57F17}.s-low{background:#E8F5E9;color:#1B5E20}.s-neutral{background:#ECEFF1;color:#455A64}
+    .badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:10.5px;font-weight:700;white-space:nowrap}.s-open{background:#E3F2FD;color:#006994}.s-pending{background:#FFF3E0;color:#E65100}.s-started{background:#E3F2FD;color:#006994}.s-closed{background:#E8F5E9;color:#1B5E20}.s-urgent{background:#FFEBEE;color:#B71C1C}.s-high{background:#FFF3E0;color:#E65100}.s-medium{background:#FFFDE7;color:#F57F17}.s-low{background:#E8F5E9;color:#1B5E20}.s-neutral{background:#ECEFF1;color:#455A64}
     .muted{color:var(--t2);font-size:11px}.strong{font-weight:700}.right{text-align:right}.hidden{display:none!important}.empty{text-align:center;color:var(--t2);padding:30px 12px}.audit-row{display:grid;grid-template-columns:145px 150px 1fr;gap:10px;border-bottom:.5px solid var(--bd);padding:9px 0}.toast{position:fixed;right:18px;bottom:18px;background:#1A237E;color:#fff;padding:10px 14px;border-radius:10px;font-size:12px;font-weight:600;z-index:9999;box-shadow:0 6px 20px rgba(0,0,0,.18)}.toast.error{background:var(--bad)}.toast.success{background:var(--ok)}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(17,24,39,.52);display:flex;align-items:center;justify-content:center;padding:18px;z-index:9998}.modal-card{width:min(560px,96vw);background:#fff;border-radius:12px;border:.5px solid var(--bd);box-shadow:0 22px 60px rgba(0,0,0,.26);overflow:hidden}.modal-head{padding:14px 16px;background:var(--pl);border-bottom:.5px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:12px}.modal-title{font-size:14px;font-weight:800;color:var(--p)}.modal-body{padding:16px}.modal-grid{display:grid;grid-template-columns:120px 1fr;gap:8px 12px;font-size:12.5px}.modal-grid .k{color:var(--t2);font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:.4px}.modal-actions{padding:12px 16px;border-top:.5px solid var(--bd);display:flex;justify-content:flex-end;gap:8px}
     .error-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px;z-index:99}.error-card{background:#fff;border-radius:12px;border:.5px solid var(--bd);box-shadow:0 10px 30px rgba(0,0,0,.12);max-width:520px;padding:26px;text-align:center}.error-card h2{color:var(--bad);margin-bottom:8px}
     .checkbox-group{display:flex;align-items:flex-start;gap:12px;padding:10px;background:#fafafa;border-radius:7px;border:1px solid var(--bd);margin-bottom:12px}.checkbox-item{display:flex;gap:8px;align-items:flex-start;flex:1}.checkbox-item input[type="checkbox"]{width:18px;height:18px;margin-top:3px;cursor:pointer;accent-color:var(--oxide)}.checkbox-item label{font-size:12px;color:var(--t1);cursor:pointer;margin:0;text-transform:none;font-weight:500;line-height:1.45}.checkbox-item .hint{font-size:11px;color:var(--t2);margin-top:2px;display:block}.disabled-field{opacity:.5;pointer-events:none}
     .searchable-select{position:relative}.search-input{width:100%;padding:8px 10px;border:1px solid var(--bd);border-radius:7px;background:#fafafa;color:var(--t1);font-size:12.5px;margin-bottom:6px}.search-input:focus{outline:none;border-color:var(--p);background:#fff}.search-icon{position:absolute;right:10px;top:10px;color:var(--t2);font-size:14px;pointer-events:none}
@@ -71,7 +72,7 @@ firebase.initializeApp({
 });
 const db=firebase.firestore();
 const TICKET_COL='css_tickets',USERS_COL='dqap_users',PROJ_COL='dqap_projects',CRM_CUSTOMERS='dqap_crm_customers',CRM_DEALS='dqap_crm_deals',SETTINGS_COL='dqap_css_settings';
-const CSS_BUILD='20260712.4';
+const CSS_BUILD='20260713.1';
 let currentUser=null,currentUserRole=null,currentUserData=null,wikiSession=null,authInitialized=false;
 let ticketsData=[],usersData=[],projectsData=[],contactsData=[],dealsData=[],cssSettings={categories:['Fire Detection','PA/VA System','Gas Suppression','Surveillance','Access Control','Other']};
 let ticketsUnsub=null,settingsUnsub=null,activeTab='dashboard',activeFilter='all',selectedTicketId='';
@@ -85,12 +86,21 @@ function nowIso(){return new Date().toISOString()}
 function roleName(){return currentUserData?.displayName||currentUserData?.fullName||currentUser||'-'}
 function isAdmin(){return ['admin','tech_admin'].includes(norm(currentUserRole))||norm(currentUser)==='updesh'}
 function canManageSettings(){return isAdmin()||norm(currentUser)==='updesh'}
+function canAssignCssTickets(){return ['updesh','pratim'].includes(norm(currentUser))}
+function userMatchesCurrent(value){const v=norm(value),name=norm(roleName()),full=norm(currentUserData?.fullName),display=norm(currentUserData?.displayName);return !!v&&(v===norm(currentUser)||v===name||v===full||v===display)}
 function showToast(msg,type='success'){const t=document.createElement('div');t.className='toast '+(type==='error'?'error':'success');t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),3200)}
 function showError(message){const d=document.createElement('div');d.className='error-screen';d.innerHTML=`<div class="error-card"><h2>CSS Access</h2><p style="color:var(--t2);line-height:1.6">${esc(message)}</p><button class="btn primary" style="margin-top:16px" onclick="location.href='https://dqapsys.github.io/dqap-wiki/'">Go to Wiki</button></div>`;document.body.appendChild(d);el('appContainer').style.display='none'}
 function fmtDate(v){const d=v?.toDate?.()||new Date(v||Date.now());return Number.isNaN(d.getTime())?'-':d.toLocaleString('en-IN',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'})}
 function dateOnly(v){const d=v?.toDate?.()||new Date(v||Date.now());return Number.isNaN(d.getTime())?'-':d.toISOString().slice(0,10)}
 function timeValue(v){const d=v?.toDate?.()||new Date(v||0);return Number.isNaN(d.getTime())?0:d.getTime()}
-function statusKey(s){const k=norm(s||'Open');return k==='pending'?'pending reply':k}
+function statusKey(s){const k=norm(s||'Pending');if(k==='open'||k==='pending reply')return'pending';if(k==='in progress')return'started';return k}
+function durationText(start,end){
+  if(!start||!end)return'-';
+  const ms=Math.max(0,timeValue(end)-timeValue(start)),mins=Math.round(ms/60000);
+  if(mins<60)return mins+' min';
+  const hrs=Math.floor(mins/60),rem=mins%60;
+  return hrs+' hr'+(hrs===1?'':'s')+(rem?' '+rem+' min':'');
+}
 
 function initializeAuth(){
   if(authInitialized)return;authInitialized=true;
@@ -141,7 +151,7 @@ async function loadReferenceData(){
 }
 function startTicketsListen(){
   if(ticketsUnsub)ticketsUnsub();
-  ticketsUnsub=db.collection(TICKET_COL).onSnapshot(sn=>{ticketsData=sn.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>timeValue(b.updatedAt||b.updated)-timeValue(a.updatedAt||a.updated));renderAll()},err=>showToast('Could not load CSS tickets: '+err.message,'error'));
+  ticketsUnsub=db.collection(TICKET_COL).onSnapshot(sn=>{ticketsData=sn.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>timeValue(b.updatedAt||b.updated)-timeValue(a.updatedAt||a.updated));renderAll();checkAssignedTicketDialog()},err=>showToast('Could not load CSS tickets: '+err.message,'error'));
 }
 function startSettingsListen(){
   if(settingsUnsub)settingsUnsub();
@@ -150,18 +160,18 @@ function startSettingsListen(){
 
 function switchTab(tab){if(tab==='settings'&&!canManageSettings())return showToast('Only admin users can open CSS settings','error');activeTab=tab;document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));document.querySelectorAll('.tab-content').forEach(c=>c.classList.toggle('active',c.id==='tab-'+tab));renderAll()}
 function renderAll(){renderDashboard();renderTickets();renderNew();renderAudit();renderSettings()}
-function statusBadge(s){const k=statusKey(s);return`<span class="badge s-${k==='pending reply'?'pending':k}">${esc(k==='pending reply'?'Pending Reply':(s||'Open'))}</span>`}
+function statusBadge(s){const k=statusKey(s);return`<span class="badge s-${k}">${esc(k.replace(/\b\w/g,m=>m.toUpperCase()))}</span>`}
 function priorityBadge(p){const k=norm(p||'Medium');return`<span class="badge s-${k}">${esc(String(p||'Medium').toUpperCase())}</span>`}
 function userOptions(selected=''){return usersData.map(u=>{const v=u.username||u.fullName||u.id;const label=u.fullName||u.displayName||u.username||u.id;return`<option value="${esc(v)}" ${norm(v)===norm(selected)||norm(label)===norm(selected)?'selected':''}>${esc(label)} (${esc(u.role||'user')})</option>`}).join('')}
 function projectLabel(id){const p=projectsData.find(x=>x.id===id);return p?`${p.number||''} ${p.name||p.projName||''}`.trim():'-'}
 function crmLabel(type,id){const row=(type==='Deal'?dealsData:contactsData).find(x=>x.id===id);return row?(type==='Deal'?(row.title||row.dealTitle||'Deal'):(row.name||row.company||'Contact')):'-'}
 
 function renderDashboard(){
-  const total=ticketsData.length,open=ticketsData.filter(t=>statusKey(t.status)==='open').length,pending=ticketsData.filter(t=>statusKey(t.status)==='pending reply').length,closed=ticketsData.filter(t=>statusKey(t.status)==='closed').length,urgent=ticketsData.filter(t=>t.priority==='Urgent'&&statusKey(t.status)!=='closed').length;
+  const total=ticketsData.length,pending=ticketsData.filter(t=>statusKey(t.status)==='pending').length,started=ticketsData.filter(t=>statusKey(t.status)==='started').length,closed=ticketsData.filter(t=>statusKey(t.status)==='closed').length,urgent=ticketsData.filter(t=>t.priority==='Urgent'&&statusKey(t.status)!=='closed').length;
   el('tab-dashboard').innerHTML=`<div class="stats">
     <div class="stat"><div class="stat-icon"><i class="ti ti-ticket"></i></div><div><div class="stat-value">${total}</div><div class="stat-label">Total tickets</div></div></div>
-    <div class="stat"><div class="stat-icon"><i class="ti ti-inbox"></i></div><div><div class="stat-value">${open}</div><div class="stat-label">Open</div></div></div>
-    <div class="stat"><div class="stat-icon"><i class="ti ti-message-reply"></i></div><div><div class="stat-value">${pending}</div><div class="stat-label">Pending reply</div></div></div>
+    <div class="stat"><div class="stat-icon"><i class="ti ti-inbox"></i></div><div><div class="stat-value">${pending}</div><div class="stat-label">Pending</div></div></div>
+    <div class="stat"><div class="stat-icon"><i class="ti ti-player-play"></i></div><div><div class="stat-value">${started}</div><div class="stat-label">Started</div></div></div>
     <div class="stat"><div class="stat-icon"><i class="ti ti-alert-triangle"></i></div><div><div class="stat-value">${urgent}</div><div class="stat-label">Urgent open</div></div></div>
   </div><div class="card"><div class="card-header">Recent support tickets <button class="btn sm primary" onclick="switchTab('new')"><i class="ti ti-plus"></i>New Ticket</button></div>${ticketTable(ticketsData.slice(0,10),false)}</div>`;
 }
@@ -170,7 +180,7 @@ function renderTickets(){
   const selected=filtered.find(t=>t.id===selectedTicketId)||filtered[0]||null;
   if(selected)selectedTicketId=selected.id;
   el('tab-tickets').innerHTML=`<div class="filters">
-    ${['all','open','pending reply','closed'].map(f=>`<button class="btn sm ${activeFilter===f?'active':''}" onclick="setFilter('${f}')">${f==='all'?'All':f.replace(/\b\w/g,m=>m.toUpperCase())}</button>`).join('')}
+    ${['all','pending','started','closed'].map(f=>`<button class="btn sm ${activeFilter===f?'active':''}" onclick="setFilter('${f}')">${f==='all'?'All':f.replace(/\b\w/g,m=>m.toUpperCase())}</button>`).join('')}
   </div><div class="queue-layout"><div class="ticket-list">${filtered.length?filtered.map(ticketRow).join(''):'<div class="card empty">No tickets found.</div>'}</div><div class="card detail-box">${selected?ticketDetail(selected):'<div class="empty">Select a ticket to view details.</div>'}</div></div>`;
 }
 function setFilter(f){activeFilter=f;renderTickets()}
@@ -178,14 +188,15 @@ function selectTicket(id){selectedTicketId=id;renderTickets()}
 function ticketRow(t){return`<div class="ticket-row ${selectedTicketId===t.id?'selected':''}" onclick="selectTicket('${t.id}')"><div class="ticket-title"><span>${esc(t.subject||'Untitled ticket')}</span>${priorityBadge(t.priority)}</div><div class="ticket-meta">${esc(t.ticketId||t.id)} · ${esc(t.requester||'-')} · ${esc(t.category||'-')}<br>${statusBadge(t.status)} <span style="margin-left:6px">${fmtDate(t.updatedAt||t.updated)}</span></div></div>`}
 function ticketDetail(t){
   const comments=(t.comments||[]).map(c=>`<div class="message"><b>${esc(c.actor||'Support')} <span class="muted">${fmtDate(c.time)}</span></b><p>${esc(c.message||'')}</p></div>`).join('');
-  return`<div class="card-header" style="margin:-16px -16px 14px"><div><div>${esc(t.subject||'Untitled ticket')}</div><div class="muted">${esc(t.ticketId||t.id)} · ${esc(t.category||'-')} · opened by ${esc(t.requester||'-')}</div></div><div style="display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end">${priorityBadge(t.priority)}${statusBadge(t.status)}</div></div>
-  <div class="form-row"><div><div class="muted">Project</div><div class="strong">${esc(projectLabel(t.projectId))}</div></div><div><div class="muted">CRM</div><div class="strong">${esc(t.crmType||'CRM')}: ${esc(crmLabel(t.crmType,t.crmId))}</div></div><div><div class="muted">Assigned to</div><div class="strong">${esc(t.assigneeName||t.assignee||'Unassigned')}</div></div><div><div class="muted">Updated</div><div class="strong">${fmtDate(t.updatedAt||t.updated)}</div></div></div>
+  const assignDisabled=canAssignCssTickets()?'':'disabled';
+  const closeDuration=t.closedAt?durationText(t.createdAt,t.closedAt):'-';
+  return`<div class="card-header" style="margin:-16px -16px 14px"><div><div>${esc(t.subject||'Untitled ticket')}</div><div class="muted">${esc(t.ticketId||t.id)} - ${esc(t.category||'-')} - opened by ${esc(t.requester||'-')}</div></div><div style="display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end">${priorityBadge(t.priority)}${statusBadge(t.status)}</div></div>
+  <div class="form-row"><div><div class="muted">Project</div><div class="strong">${esc(projectLabel(t.projectId))}</div></div><div><div class="muted">CRM</div><div class="strong">${esc(t.crmType||'CRM')}: ${esc(crmLabel(t.crmType,t.crmId))}</div></div><div><div class="muted">Assigned to</div><div class="strong">${esc(t.assigneeName||t.assignee||'Unassigned')}</div></div><div><div class="muted">Time to close</div><div class="strong">${esc(closeDuration)}</div></div></div>
   <div class="message"><b>${esc(t.requester||'Requester')}</b><p>${esc(t.message||'')}</p></div>${comments}
-  <div class="form-row"><div class="form-group"><label>Assign to</label><select id="detail-assignee"><option value="">Unassigned</option>${userOptions(t.assignee)}</select></div><div class="form-group"><label>Status</label><select id="detail-status"><option ${statusKey(t.status)==='open'?'selected':''}>Open</option><option ${statusKey(t.status)==='pending reply'?'selected':''}>Pending Reply</option><option ${statusKey(t.status)==='closed'?'selected':''}>Closed</option></select></div></div>
+  <div class="form-row"><div class="form-group"><label>Assign to</label><select id="detail-assignee" ${assignDisabled}><option value="">Unassigned</option>${userOptions(t.assignee)}</select><div class="muted" style="margin-top:4px">${canAssignCssTickets()?'Only Updesh and Pratim can assign CSS tickets.':'Assignment is locked for your login.'}</div></div><div class="form-group"><label>Status</label><select id="detail-status"><option ${statusKey(t.status)==='pending'?'selected':''}>Pending</option><option ${statusKey(t.status)==='started'?'selected':''}>Started</option><option ${statusKey(t.status)==='closed'?'selected':''}>Closed</option></select></div></div>
   <div class="form-group"><label>Reply / internal update</label><textarea id="detail-reply" placeholder="Write a reply or status note"></textarea></div>
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn primary" onclick="updateTicket('${t.id}')"><i class="ti ti-device-floppy"></i>Save Update</button><button class="btn ok" onclick="closeTicket('${t.id}')"><i class="ti ti-circle-check"></i>Close Ticket</button></div>`;
-}
-function ticketTable(list,actions){
+}function ticketTable(list,actions){
   if(!list.length)return'<div class="empty">No support tickets found.</div>';
   return`<div class="table-wrap"><table><thead><tr><th>No.</th><th>Subject</th><th>Links</th><th>Requester</th><th>Priority</th><th>Status</th><th>Updated</th>${actions?'<th>Action</th>':''}</tr></thead><tbody>${list.map(t=>`<tr><td class="strong">${esc(t.ticketId||t.id)}</td><td><b>${esc(t.subject||'Untitled ticket')}</b><div class="muted">${esc(t.category||'-')}</div></td><td>${esc(projectLabel(t.projectId))}<div class="muted">${esc(t.crmType||'CRM')}: ${esc(crmLabel(t.crmType,t.crmId))}</div></td><td>${esc(t.requester||'-')}<div class="muted">Assignee: ${esc(t.assigneeName||t.assignee||'Unassigned')}</div></td><td>${priorityBadge(t.priority)}</td><td>${statusBadge(t.status)}</td><td>${esc(dateOnly(t.updatedAt||t.updated))}</td>${actions?`<td><button class="btn sm" onclick="selectedTicketId='${t.id}';switchTab('tickets')">Open</button></td>`:''}</tr>`).join('')}</tbody></table></div>`;
 }
@@ -276,9 +287,10 @@ function renderNew(){
       username:c.username
     });
   }
+  const assignDisabled=canAssignCssTickets()?'':'disabled';
   el('tab-new').innerHTML=`<div class="card"><div class="card-header">Create support ticket</div>
-    <div class="form-row"><div class="form-group"><label class="req">Requester name</label><input id="f-requester" value="${esc(roleName())}"></div><div class="form-group"><label class="req">Subject</label><input id="f-subject" placeholder="Short support issue"></div><div class="form-group"><label>Assignee</label><select id="f-assignee"><option value="">Unassigned</option>${userOptions()}</select></div></div>
-    <div class="form-row"><div class="form-group"><label class="req">Category</label><select id="f-category">${(cssSettings.categories||[]).map(c=>`<option>${esc(c)}</option>`).join('')}</select></div><div class="form-group"><label class="req">Priority</label><select id="f-priority"><option>Low</option><option selected>Medium</option><option>High</option><option>Urgent</option></select></div><div class="form-group"><label>Status</label><select id="f-status"><option selected>Open</option><option>Pending Reply</option><option>Closed</option></select></div></div>
+    <div class="form-row"><div class="form-group"><label class="req">Requester name</label><input id="f-requester" value="${esc(roleName())}"></div><div class="form-group"><label class="req">Subject</label><input id="f-subject" placeholder="Short support issue"></div><div class="form-group"><label>Assignee</label><select id="f-assignee" ${assignDisabled}><option value="">Unassigned</option>${userOptions()}</select><div class="muted" style="margin-top:4px">${canAssignCssTickets()?'Optional for Updesh and Pratim.':'New tickets stay unassigned for Pratim review.'}</div></div></div>
+    <div class="form-row"><div class="form-group"><label class="req">Category</label><select id="f-category">${(cssSettings.categories||[]).map(c=>`<option>${esc(c)}</option>`).join('')}</select></div><div class="form-group"><label class="req">Priority</label><select id="f-priority"><option>Low</option><option selected>Medium</option><option>High</option><option>Urgent</option></select></div><div class="form-group"><label>Status</label><select id="f-status"><option selected>Pending</option><option>Started</option><option>Closed</option></select></div></div>
     <div class="checkbox-group"><div class="checkbox-item"><input type="checkbox" id="f-enable-project" onchange="toggleProjectField(this.checked)"><label for="f-enable-project">Project<span class="hint">Enable only when this ticket belongs to a Wiki project.</span></label></div><div class="checkbox-item"><input type="checkbox" id="f-enable-contact" onchange="toggleContactField(this.checked)"><label for="f-enable-contact">Contact<span class="hint">Enable only when this ticket belongs to a CRM contact/deal.</span></label></div></div>
     <div class="form-row"><div class="form-group disabled-field"><label>Wiki Project Link</label><input type="text" id="project-search" class="search-input" placeholder="Search projects..."><select id="f-project"><option value="">Select project</option>${projectsData.map(p=>`<option value="${p.id}">${esc((p.number||'')+' '+(p.name||p.projName||''))}</option>`).join('')}</select></div><div class="form-group disabled-field"><label>CRM Contact / Deal</label><input type="text" id="crm-search" class="search-input" placeholder="Search contacts..."><select id="f-crm"><option value="">Select CRM contact/deal</option>${crmOpts.map(o=>`<option value="${o.type}|${o.id}">${o.type}: ${o.display}</option>`).join('')}</select></div></div>
     <div class="form-group"><label class="req">Details</label><textarea id="f-message" placeholder="Describe the issue, customer impact, site details and expected action"></textarea></div>
@@ -290,29 +302,60 @@ function renderNew(){
   },100);
 }
 async function submitTicket(){
-  const requester=g('f-requester'),subject=g('f-subject'),message=g('f-message'),category=g('f-category'),priority=g('f-priority'),status=g('f-status'),assignee=g('f-assignee');
+  const requester=g('f-requester'),subject=g('f-subject'),message=g('f-message'),category=g('f-category'),priority=g('f-priority'),status=g('f-status'),assignee=canAssignCssTickets()?g('f-assignee'):'';
   const projectId=enableProjectCheckbox?g('f-project'):'';
   const crmRaw=enableContactCheckbox?g('f-crm'):'';
   if(!requester||!subject||!message)return showToast('Enter requester, subject and details','error');
   const [crmType,crmId]=(crmRaw||'|').split('|'),ref=db.collection(TICKET_COL).doc(),assigneeUser=usersData.find(u=>norm(u.username)===norm(assignee)||norm(u.fullName)===norm(assignee));
   const now=nowIso();
-  await ref.set({ticketId:'CSS-'+ref.id.slice(0,6).toUpperCase(),requester,subject,message,category,priority,status,assignee,assigneeName:assigneeUser?.fullName||assigneeUser?.displayName||assignee,projectId,crmType,crmId,createdAt:now,updatedAt:now,createdBy:currentUser,createdByName:roleName(),audit:[{time:now,actor:roleName(),action:'Created support ticket'}]});
+  const ticketStatus=assignee?status:'Pending';
+  await ref.set({ticketId:'CSS-'+ref.id.slice(0,6).toUpperCase(),requester,subject,message,category,priority,status:ticketStatus,assignee,assigneeName:assigneeUser?.fullName||assigneeUser?.displayName||assignee,projectId,crmType,crmId,createdAt:now,updatedAt:now,createdBy:currentUser,createdByName:roleName(),assignedAt:assignee?now:null,assignedBy:assignee?currentUser:'',assignedByName:assignee?roleName():'',assigneeActionRequiredAt:assignee?now:null,assigneeActionResolvedAt:null,assignedDialogClosedAt:null,startedAt:null,closedAt:null,timeToCloseMinutes:null,audit:[{time:now,actor:roleName(),action:assignee?'Created support ticket and assigned to '+(assigneeUser?.fullName||assignee):'Created unassigned support ticket'}]});
   showToast('Ticket created');selectedTicketId=ref.id;switchTab('tickets');
 }
 async function updateTicket(id){
   const t=ticketsData.find(x=>x.id===id);if(!t)return;
   const assignee=g('detail-assignee'),status=g('detail-status'),reply=g('detail-reply'),assigneeUser=usersData.find(u=>norm(u.username)===norm(assignee)||norm(u.fullName)===norm(assignee)),now=nowIso();
-  const audit=[...(t.audit||[]),{time:now,actor:roleName(),action:`Updated ticket: ${status}${assignee?'; assigned to '+(assigneeUser?.fullName||assignee):''}`}];
+  if(norm(assignee)!==norm(t.assignee)&&!canAssignCssTickets())return showToast('Only Updesh and Pratim can assign CSS tickets','error');
+  const wasAssigned=!!t.assignee,didAssign=!wasAssigned&&!!assignee,changedAssignee=norm(assignee)!==norm(t.assignee);
+  const audit=[...(t.audit||[]),{time:now,actor:roleName(),action:`Updated ticket: ${status}${changedAssignee?'; assigned to '+(assigneeUser?.fullName||assignee||'Unassigned'):''}`}];
   const comments=[...(t.comments||[])];
   if(reply)comments.push({time:now,actor:roleName(),message:reply});
-  await db.collection(TICKET_COL).doc(id).update({status,assignee,assigneeName:assigneeUser?.fullName||assigneeUser?.displayName||assignee,updatedAt:now,audit,comments});
+  const update={status:didAssign?'Pending':status,assignee,assigneeName:assigneeUser?.fullName||assigneeUser?.displayName||assignee,updatedAt:now,audit,comments};
+  if(didAssign||changedAssignee){update.assignedAt=assignee?now:null;update.assignedBy=assignee?currentUser:'';update.assignedByName=assignee?roleName():'';update.assigneeActionRequiredAt=assignee?now:null;update.assigneeActionResolvedAt=null;update.assignedDialogClosedAt=null;if(assignee)update.startedAt=null;}
+  if(status==='Started'&&!t.startedAt)update.startedAt=now;
+  if(status==='Closed'){update.closedAt=now;update.assigneeActionResolvedAt=t.assigneeActionResolvedAt||now;update.timeToCloseMinutes=Math.round((timeValue(now)-timeValue(t.createdAt))/60000);}
+  await db.collection(TICKET_COL).doc(id).update(update);
   showToast('Ticket updated');
 }
 async function closeTicket(id){
   const t=ticketsData.find(x=>x.id===id);if(!t)return;
   const now=nowIso(),audit=[...(t.audit||[]),{time:now,actor:roleName(),action:'Closed ticket'}];
-  await db.collection(TICKET_COL).doc(id).update({status:'Closed',updatedAt:now,audit});
+  await db.collection(TICKET_COL).doc(id).update({status:'Closed',updatedAt:now,closedAt:now,assigneeActionResolvedAt:t.assigneeActionResolvedAt||now,timeToCloseMinutes:Math.round((timeValue(now)-timeValue(t.createdAt))/60000),audit});
   showToast('Ticket closed');
+}
+function checkAssignedTicketDialog(){
+  if(!currentUser||document.getElementById('assigned-ticket-modal'))return;
+  const t=ticketsData.find(x=>statusKey(x.status)==='pending'&&userMatchesCurrent(x.assignee)&&!x.assignedDialogClosedAt);
+  if(t)showAssignedTicketDialog(t);
+}
+function showAssignedTicketDialog(t){
+  const d=document.createElement('div');d.id='assigned-ticket-modal';d.className='modal-backdrop';
+  d.innerHTML=`<div class="modal-card"><div class="modal-head"><div class="modal-title"><i class="ti ti-bell"></i> CSS ticket assigned</div>${priorityBadge(t.priority)}</div><div class="modal-body"><div class="modal-grid">
+    <div class="k">Ticket ID</div><div>${esc(t.ticketId||t.id)}</div>
+    <div class="k">Subject</div><div><b>${esc(t.subject||'Untitled ticket')}</b></div>
+    <div class="k">Requester</div><div>${esc(t.requester||'-')}</div>
+    <div class="k">Category</div><div>${esc(t.category||'-')}</div>
+    <div class="k">Assigned by</div><div>${esc(t.assignedByName||'-')}</div>
+    <div class="k">Details</div><div style="white-space:pre-wrap">${esc(t.message||'')}</div>
+  </div></div><div class="modal-actions"><button class="btn primary" onclick="startAssignedTicket('${t.id}')"><i class="ti ti-player-play"></i>Start Work</button></div></div>`;
+  document.body.appendChild(d);
+}
+async function startAssignedTicket(id){
+  const t=ticketsData.find(x=>x.id===id);if(!t)return;
+  const now=nowIso(),audit=[...(t.audit||[]),{time:now,actor:roleName(),action:'Started work from assignment dialog'}];
+  await db.collection(TICKET_COL).doc(id).update({status:'Started',startedAt:t.startedAt||now,assignedDialogClosedAt:now,assigneeActionResolvedAt:now,updatedAt:now,audit});
+  document.getElementById('assigned-ticket-modal')?.remove();
+  showToast('Work started');
 }
 function renderAudit(){
   const rows=ticketsData.flatMap(t=>(t.audit||[]).map(a=>({...a,ticketId:t.ticketId||t.id,subject:t.subject}))).sort((a,b)=>String(b.time).localeCompare(String(a.time)));
