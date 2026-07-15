@@ -35,6 +35,7 @@
     .error-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px;z-index:99}.error-card{background:#fff;border-radius:12px;border:.5px solid var(--bd);box-shadow:0 10px 30px rgba(0,0,0,.12);max-width:520px;padding:26px;text-align:center}.error-card h2{color:var(--bad);margin-bottom:8px}
     .checkbox-group{display:flex;align-items:flex-start;gap:12px;padding:10px;background:#fafafa;border-radius:7px;border:1px solid var(--bd);margin-bottom:12px}.checkbox-item{display:flex;gap:8px;align-items:flex-start;flex:1}.checkbox-item input[type="checkbox"]{width:18px;height:18px;margin-top:3px;cursor:pointer;accent-color:var(--oxide)}.checkbox-item label{font-size:12px;color:var(--t1);cursor:pointer;margin:0;text-transform:none;font-weight:500;line-height:1.45}.checkbox-item .hint{font-size:11px;color:var(--t2);margin-top:2px;display:block}.disabled-field{opacity:.5;pointer-events:none}
     .searchable-select{position:relative}.search-input{width:100%;padding:8px 10px;border:1px solid var(--bd);border-radius:7px;background:#fafafa;color:var(--t1);font-size:12.5px;margin-bottom:6px}.search-input:focus{outline:none;border-color:var(--p);background:#fff}.search-icon{position:absolute;right:10px;top:10px;color:var(--t2);font-size:14px;pointer-events:none}
+    .tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.format-table{width:100%;border-collapse:collapse;margin-top:8px}.format-table th,.format-table td{padding:7px 8px;border:.5px solid var(--bd);font-size:11.5px;vertical-align:top}.format-table code{font-family:Consolas,monospace;font-size:11px;background:#f5f5f5;padding:1px 4px;border-radius:4px}
     @media(max-width:900px){.queue-layout{grid-template-columns:1fr}.ticket-list{max-height:330px}}
     @media(max-width:720px){.container{padding:12px}.header{align-items:flex-start;flex-direction:column}.audit-row{grid-template-columns:1fr}.tabs{gap:6px}.tab-btn{padding:8px 10px}.card{padding:12px}.card-header{margin:-12px -12px 12px;padding:10px 12px}}
   </style>
@@ -72,10 +73,11 @@ firebase.initializeApp({
 });
 const db=firebase.firestore();
 const TICKET_COL='css_tickets',USERS_COL='dqap_users',PROJ_COL='dqap_projects',CRM_CUSTOMERS='dqap_crm_customers',CRM_DEALS='dqap_crm_deals',SETTINGS_COL='dqap_css_settings';
-const CSS_BUILD='20260713.1';
+const CSS_BUILD='20260715.1';
 let currentUser=null,currentUserRole=null,currentUserData=null,wikiSession=null,authInitialized=false;
 let ticketsData=[],usersData=[],projectsData=[],contactsData=[],dealsData=[],cssSettings={categories:['Fire Detection','PA/VA System','Gas Suppression','Surveillance','Access Control','Other']};
 let ticketsUnsub=null,settingsUnsub=null,activeTab='dashboard',activeFilter='all',selectedTicketId='';
+const CSS_IMPORT_HEADERS=['requester','subject','message','category','priority','status','assignee','projectId','crmType','crmId'];
 let enableProjectCheckbox=false,enableContactCheckbox=false;
 
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
@@ -87,6 +89,7 @@ function roleName(){return currentUserData?.displayName||currentUserData?.fullNa
 function isAdmin(){return ['admin','tech_admin'].includes(norm(currentUserRole))||norm(currentUser)==='updesh'}
 function canManageSettings(){return isAdmin()||norm(currentUser)==='updesh'}
 function canAssignCssTickets(){return ['updesh','pratim'].includes(norm(currentUser))}
+function canImportCssTickets(){return canAssignCssTickets()||isAdmin()}
 function userMatchesCurrent(value){const v=norm(value),name=norm(roleName()),full=norm(currentUserData?.fullName),display=norm(currentUserData?.displayName);return !!v&&(v===norm(currentUser)||v===name||v===full||v===display)}
 function showToast(msg,type='success'){const t=document.createElement('div');t.className='toast '+(type==='error'?'error':'success');t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),3200)}
 function showError(message){const d=document.createElement('div');d.className='error-screen';d.innerHTML=`<div class="error-card"><h2>CSS Access</h2><p style="color:var(--t2);line-height:1.6">${esc(message)}</p><button class="btn primary" style="margin-top:16px" onclick="location.href='https://dqapsys.github.io/dqap-wiki/'">Go to Wiki</button></div>`;document.body.appendChild(d);el('appContainer').style.display='none'}
@@ -173,7 +176,7 @@ function renderDashboard(){
     <div class="stat"><div class="stat-icon"><i class="ti ti-inbox"></i></div><div><div class="stat-value">${pending}</div><div class="stat-label">Pending</div></div></div>
     <div class="stat"><div class="stat-icon"><i class="ti ti-player-play"></i></div><div><div class="stat-value">${started}</div><div class="stat-label">Started</div></div></div>
     <div class="stat"><div class="stat-icon"><i class="ti ti-alert-triangle"></i></div><div><div class="stat-value">${urgent}</div><div class="stat-label">Urgent open</div></div></div>
-  </div><div class="card"><div class="card-header">Recent support tickets <button class="btn sm primary" onclick="switchTab('new')"><i class="ti ti-plus"></i>New Ticket</button></div>${ticketTable(ticketsData.slice(0,10),false)}</div>`;
+  </div><div class="card"><div class="card-header"><span>Recent support tickets</span><div class="tools"><button class="btn sm" onclick="exportTicketsExcel()"><i class="ti ti-file-spreadsheet"></i>Export to Excel</button>${canImportCssTickets()?'<button class="btn sm" onclick="importCsvTickets()"><i class="ti ti-upload"></i>Import CSV</button>':''}<button class="btn sm" onclick="downloadCsvTemplate()"><i class="ti ti-download"></i>CSV Format</button><button class="btn sm primary" onclick="switchTab('new')"><i class="ti ti-plus"></i>New Ticket</button></div></div>${ticketTable(ticketsData.slice(0,10),false)}</div>${csvFormatCard()}`;
 }
 function renderTickets(){
   const filtered=activeFilter==='all'?ticketsData:ticketsData.filter(t=>statusKey(t.status)===activeFilter);
@@ -258,6 +261,69 @@ function filterCrmSelect(){
     const text=opt.textContent.toLowerCase();
     opt.style.display=text.includes(query)?'block':'none';
   });
+}
+
+
+function csvFormatCard(){
+  return `<div class="card"><div class="card-header"><span>Import CSV format</span><button class="btn sm" onclick="downloadCsvTemplate()"><i class="ti ti-download"></i>Download Sample CSV</button></div>
+    <div class="muted" style="margin-bottom:8px">CSV import creates new CSS tickets. Required columns: <b>requester</b>, <b>subject</b>, <b>message</b>. Optional values can be left blank.</div>
+    <div class="table-wrap"><table class="format-table"><thead><tr><th>Column</th><th>Required</th><th>Allowed / Notes</th></tr></thead><tbody>
+      <tr><td><code>requester</code></td><td>Yes</td><td>Name of customer/internal requester.</td></tr>
+      <tr><td><code>subject</code></td><td>Yes</td><td>Short ticket title.</td></tr>
+      <tr><td><code>message</code></td><td>Yes</td><td>Issue details. Use quotes if the text has commas.</td></tr>
+      <tr><td><code>category</code></td><td>No</td><td>Defaults to first CSS category. Example: Fire Detection, PA/VA System.</td></tr>
+      <tr><td><code>priority</code></td><td>No</td><td>Low, Medium, High, Urgent. Defaults to Medium.</td></tr>
+      <tr><td><code>status</code></td><td>No</td><td>Pending, Started, Closed. Defaults to Pending.</td></tr>
+      <tr><td><code>assignee</code></td><td>No</td><td>Wiki username or full name. Import by non-managers leaves this blank.</td></tr>
+      <tr><td><code>projectId</code></td><td>No</td><td>Optional Wiki project document ID.</td></tr>
+      <tr><td><code>crmType</code></td><td>No</td><td>Contact or Deal. Used with crmId.</td></tr>
+      <tr><td><code>crmId</code></td><td>No</td><td>Optional CRM customer/deal document ID.</td></tr>
+    </tbody></table></div></div>`;
+}
+function csvEscape(v){const s=String(v??'');return /[",\r\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}
+function downloadBlob(filename,content,type){const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),500)}
+function downloadCsvTemplate(){
+  const sample=['Keshav Sharma','PA amplifier fault at IOCL Kolkata','Amplifier channel 2 output is low; site needs support','PA/VA System','Urgent','Pending','','','',''];
+  downloadBlob('dqap-css-import-format.csv',CSS_IMPORT_HEADERS.join(',')+'\r\n'+sample.map(csvEscape).join(',')+'\r\n','text/csv;charset=utf-8');
+}
+function xmlCell(v){return String(v??'').replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]))}
+function exportTicketsExcel(){
+  const headers=['Ticket ID','Requester','Subject','Category','Priority','Status','Assignee','Project','CRM Type','CRM Link','Created','Updated','Started','Closed','Time to Close','Message'];
+  const rows=ticketsData.map(t=>[t.ticketId||t.id,t.requester,t.subject,t.category,t.priority,t.status,t.assigneeName||t.assignee||'',projectLabel(t.projectId),t.crmType||'',crmLabel(t.crmType,t.crmId),dateOnly(t.createdAt),dateOnly(t.updatedAt||t.updated),dateOnly(t.startedAt),dateOnly(t.closedAt),durationText(t.createdAt,t.closedAt),t.message]);
+  const rowXml=[headers,...rows].map(r=>'<Row>'+r.map(c=>`<Cell><Data ss:Type="String">${xmlCell(c)}</Data></Cell>`).join('')+'</Row>').join('');
+  const xml=`<?xml version="1.0"?><Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"><Worksheet ss:Name="CSS Tickets"><Table>${rowXml}</Table></Worksheet></Workbook>`;
+  downloadBlob('dqap-css-tickets.xls',xml,'application/vnd.ms-excel;charset=utf-8');
+}
+function parseCsv(text){
+  const rows=[];let row=[],cell='',q=false;
+  for(let i=0;i<text.length;i++){const ch=text[i],next=text[i+1];if(q){if(ch==='"'&&next==='"'){cell+='"';i++;}else if(ch==='"')q=false;else cell+=ch;}else{if(ch==='"')q=true;else if(ch===','){row.push(cell);cell='';}else if(ch==='\n'){row.push(cell);rows.push(row);row=[];cell='';}else if(ch!=='\r')cell+=ch;}}
+  if(cell||row.length){row.push(cell);rows.push(row)}
+  return rows.filter(r=>r.some(c=>String(c).trim()));
+}
+function normalizeImportStatus(v){const k=statusKey(v||'Pending');return k==='started'?'Started':k==='closed'?'Closed':'Pending'}
+function normalizeImportPriority(v){const p=String(v||'Medium').trim();return ['Low','Medium','High','Urgent'].includes(p)?p:'Medium'}
+async function importCsvTickets(){
+  if(!canImportCssTickets())return showToast('Only Updesh, Pratim or admin can import CSS tickets','error');
+  const input=document.createElement('input');input.type='file';input.accept='.csv,text/csv';
+  input.onchange=async()=>{
+    const file=input.files?.[0];if(!file)return;
+    try{
+      const rows=parseCsv(await file.text());if(rows.length<2)return showToast('CSV has no ticket rows','error');
+      const headers=rows[0].map(h=>norm(h));const idx=h=>headers.indexOf(norm(h));
+      for(const req of ['requester','subject','message']){if(idx(req)<0)return showToast('Missing required CSV column: '+req,'error')}
+      let imported=0;const batch=db.batch(),now=nowIso();
+      rows.slice(1).forEach((r,line)=>{
+        const get=h=>{const i=idx(h);return i>=0?String(r[i]||'').trim():''};
+        const requester=get('requester'),subject=get('subject'),message=get('message');if(!requester||!subject||!message)throw new Error('Line '+(line+2)+' is missing requester, subject or message');
+        const assignee=canAssignCssTickets()?get('assignee'):'';const assigneeUser=usersData.find(u=>norm(u.username)===norm(assignee)||norm(u.fullName)===norm(assignee));
+        const ref=db.collection(TICKET_COL).doc();
+        batch.set(ref,{ticketId:'CSS-'+ref.id.slice(0,6).toUpperCase(),requester,subject,message,category:get('category')||(cssSettings.categories||[])[0]||'Other',priority:normalizeImportPriority(get('priority')),status:normalizeImportStatus(get('status')),assignee,assigneeName:assigneeUser?.fullName||assigneeUser?.displayName||assignee,projectId:get('projectId'),crmType:get('crmType'),crmId:get('crmId'),createdAt:now,updatedAt:now,createdBy:currentUser,createdByName:roleName(),assignedAt:assignee?now:null,assignedBy:assignee?currentUser:'',assignedByName:assignee?roleName():'',assigneeActionRequiredAt:assignee?now:null,assigneeActionResolvedAt:null,assignedDialogClosedAt:null,startedAt:null,closedAt:null,timeToCloseMinutes:null,audit:[{time:now,actor:roleName(),action:'Imported support ticket from CSV'}]});
+        imported++;
+      });
+      await batch.commit();showToast('Imported '+imported+' CSS ticket(s)');switchTab('tickets');
+    }catch(e){showToast('CSV import failed: '+e.message,'error')}
+  };
+  input.click();
 }
 
 function renderNew(){
